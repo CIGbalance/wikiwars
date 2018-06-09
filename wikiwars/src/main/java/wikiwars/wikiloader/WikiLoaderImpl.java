@@ -69,7 +69,7 @@ public class WikiLoaderImpl implements WikiLoader {
 			JSONObject page = (JSONObject) pages.get(index);
 			
 			String extract = (String) page.get("extract");
-                        int cutoff = extract.indexOf("== See also ==");
+                        int cutoff = extract.indexOf("== References ==");
                         extract = extract.substring(0, cutoff);
                         
                         JSONArray revisions = (JSONArray) page.get("revisions");
