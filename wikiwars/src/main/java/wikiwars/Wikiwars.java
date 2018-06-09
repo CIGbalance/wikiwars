@@ -8,6 +8,15 @@ package wikiwars;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.*;
+import wikiwars.watson.NLProcessor;
+import wikiwars.watson.NLProcessorImpl;
+import wikiwars.wikiloader.WikiLoader;
+import wikiwars.wikiloader.WikiLoaderImpl;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author vv
@@ -23,41 +32,20 @@ public class Wikiwars {
         String url = "https://en.wikipedia.org/wiki/" + topic;
         //get data per Wiki API
 
+        WikiLoader wl = new WikiLoaderImpl();
+        NLProcessor nlp = new NLProcessorImpl();
+
+        Map<Instant, String> articleHistory = wl.getArticleHistory(topic);
+
         //get Watson response
-        NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
-                "2018-03-16",
-                "56e32079-1ebb-41af-882e-ed8e90fdcb50",
-                "b1qmkh6h0sgt"
-        );
-        service.setEndPoint( "https://gateway-fra.watsonplatform.net/natural-language-understanding/api");
+        List<String[][]> results = new ArrayList<>();
 
-        String text = "I love all baby kittens.";
-
-        EntitiesOptions entitiesOptions = new EntitiesOptions.Builder()
-                .sentiment(true)
-                .limit(2)
-                .build();
-
-        SentimentOptions sentimentOptions = new SentimentOptions.Builder()
-                .build();
-
-        Features features = new Features.Builder()
-                .entities(entitiesOptions)
-                .sentiment(sentimentOptions)
-                .build();
-
-        AnalyzeOptions parameters = new AnalyzeOptions.Builder()
-                .text(text)
-                .features(features)
-                .build();
-
-        AnalysisResults response = service
-                .analyze(parameters)
-                .execute();
-        System.out.println(response);
-
+        for(Instant time : articleHistory.keySet()) {
+            results.add(nlp.processText(articleHistory.get(time)));
+        }
 
         //output to .csv
+        //TODO results -> csv
 
         //start R Script
 
