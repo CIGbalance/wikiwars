@@ -6,8 +6,14 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,10 +56,43 @@ public class WikiLoaderImpl implements WikiLoader {
 	    
 	    String json = sb.toString();
 	    
-	    Gson gson=new GsonBuilder().create();
-	    Query r = gson.fromJson(json, Query.class);
-	    System.out.println(r.toString());
-
+	    ArrayList<Long> revids = new ArrayList<>();
+	    
+	    JSONParser parser= new JSONParser();
+	    try {
+			Object obj=parser.parse(json);
+			JSONObject jsonObject= (JSONObject)obj;
+			
+			JSONObject query = (JSONObject) jsonObject.get("query");
+			JSONObject pages = (JSONObject) query.get("pages");
+			String index="";
+			Iterator it =pages.keySet().iterator();
+			while (it.hasNext())
+			{
+				index=(String) it.next();
+			}
+			JSONObject page = (JSONObject) pages.get(index);
+			
+			JSONArray revisions = (JSONArray) page.get("revisions");
+			
+			//JSONObject r1 = (JSONObject) revisions.get(0);
+			//System.out.println(r1.get("revid"));
+			Iterator it1=revisions.iterator();
+			while(it1.hasNext())
+			{
+				JSONObject r = (JSONObject) it1.next();
+				//System.out.println(r.get("revid").getClass());
+				long s = (long) r.get("revid");
+				revids.add(s);
+			}
+			
+			for(long l : revids) System.out.println(l);
+			
+		} catch (Exception e) {
+			System.out.println("du bist aber verarscht worden ");
+			e.printStackTrace();
+			// TODO: handle exception
+		}
         return result;
     }
   
