@@ -23,6 +23,8 @@ public class Wikiwars {
         String url = "https://en.wikipedia.org/wiki/" + topic;
         //get data per Wiki API
 
+
+
         //get Watson response
         NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
                 "2018-03-16",
@@ -55,7 +57,7 @@ public class Wikiwars {
                 .analyze(parameters)
                 .execute();
         System.out.println(response);
-
+        
 
         //output to .csv
 
