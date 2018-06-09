@@ -64,6 +64,8 @@ public class Wikiwars {
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(csvFile));
+            writer.append("timestamp, entity, sentiment, joy, anger, disgust, sadness, fear");
+            writer.newLine();
             for(DataPoint dp : results){
                 writer.append(dp.toString());
                 writer.newLine();
