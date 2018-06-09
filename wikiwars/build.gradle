@@ -8,6 +8,7 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 mainClassName = 'wikiwars.Wikiwars'
+//mainClassName = 'wikiwars.watson.WatsonTester'
 
 repositories {
     mavenCentral()
@@ -15,4 +16,5 @@ repositories {
 
 dependencies {
     compile 'com.ibm.watson.developer_cloud:java-sdk:5.1.1'
+    compile 'com.googlecode.json-simple:json-simple:1.1.1'
 }
