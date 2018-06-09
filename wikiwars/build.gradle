@@ -12,5 +12,5 @@ repositories {
 }
 
 dependencies {
-    
+    compile 'com.ibm.watson.developer_cloud:java-sdk:5.1.1'
 }
