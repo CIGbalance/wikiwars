@@ -38,7 +38,7 @@ public class Wikiwars {
      */
     public static void main(String[] args) {
         //input Thema
-        String topic = "Foreign_relations_of_North_Korea";
+        String topic = "Donald_Trump";
         String url = "https://en.wikipedia.org/wiki/" + topic;
         String csvFile = topic+".csv";
         //get data per Wiki API
@@ -48,13 +48,15 @@ public class Wikiwars {
         NLProcessor nlp = new NLProcessor();
 
         List<Long> articleRevids = wl.getArticleRevids(topic);
-        Map<Instant, String> articleHistory = wl.getArticleHistory(articleRevids);
+        Map<String, String> articleHistory = wl.getArticleHistory(articleRevids);
 
 
         //get Watson response
         List<DataPoint> results = new ArrayList<>();
+        
+        System.out.println(articleHistory.keySet());
 
-        for(Instant time : articleHistory.keySet()) {
+        for(String time : articleHistory.keySet()) {
             results.addAll(nlp.processText(time, articleHistory.get(time)));
         }
         

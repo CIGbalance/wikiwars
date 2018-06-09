@@ -20,14 +20,14 @@ public class NLProcessor {
         service.setEndPoint( "https://gateway-fra.watsonplatform.net/natural-language-understanding/api");
     }
 
-    public List<DataPoint> processText(Instant time, String text) {
+    public List<DataPoint> processText(String time, String text) {
         // TODO: Silly example code
         AnalysisResults response = requestWatson(text);
         System.out.println(response);
         return parseResponse(time, response);
     }
     
-    public List<DataPoint> parseResponse(Instant time, AnalysisResults response){
+    public List<DataPoint> parseResponse(String time, AnalysisResults response){
         List<DataPoint> parsedResult = new ArrayList<DataPoint>();
         List<EntitiesResult> entities = response.getEntities();
         for(EntitiesResult entity: entities){

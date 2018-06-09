@@ -15,12 +15,12 @@ import java.time.Instant;
  * @author vv
  */
 public class DataPoint {
-    private Instant time;
+    private String time;
     private String entity;
     private double sentiment;
     private double[] emotions;
     
-    public DataPoint(Instant time, String entity, double sentiment, double[] emotions){
+    public DataPoint(String time, String entity, double sentiment, double[] emotions){
         this.time=time;
         this.entity=entity;
         this.sentiment = sentiment;
@@ -29,7 +29,7 @@ public class DataPoint {
     
     public String toString(){
         String sep=",";
-        String value = this.time.toString()+",";
+        String value = this.time+",";
         value += this.entity+",";
         value += this.sentiment+",";
         String tmp = Arrays.toString(emotions);
