@@ -47,8 +47,8 @@ public class Wikiwars {
         WikiLoader wl = new WikiLoaderImpl();
         NLProcessor nlp = new NLProcessor();
 
-
-        Map<Instant, String> articleHistory = wl.getArticleHistory(topic);
+        List<Long> articleRevids = wl.getArticleRevids(topic);
+        Map<Instant, String> articleHistory = wl.getArticleHistory(articleRevids);
 
 
         //get Watson response

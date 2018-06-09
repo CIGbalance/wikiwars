@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
@@ -19,10 +20,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class WikiLoaderImpl implements WikiLoader {
+	
+	public Map<Instant, String> getArticleHistory(List<Long> revids){
+		
+		return null;
+	}
+	
     @Override
-    public Map<Instant, String> getArticleHistory(String title) {
-        Map<Instant, String>  result = new HashMap<>();
-        result.put(Instant.now(), "Tollerartikeltext");
+    public List<Long> getArticleRevids(String title) {
         
         title = title.replaceAll("\\u0020", "%20");
         
@@ -93,12 +98,12 @@ public class WikiLoaderImpl implements WikiLoader {
 			e.printStackTrace();
 			// TODO: handle exception
 		}
-        return result;
+        return revids;
     }
   
   public static void main(String[] args) {
     WikiLoader l = new WikiLoaderImpl();
-    l.getArticleHistory("North Korea");
+    l.getArticleRevids("North Korea");
     
   }
    
