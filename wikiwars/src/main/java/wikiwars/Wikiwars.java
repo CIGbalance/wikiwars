@@ -25,7 +25,6 @@ public class Wikiwars {
         //output to .csv
         
         //start R Script
-        
     }
     
 }
