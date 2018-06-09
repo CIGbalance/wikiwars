@@ -71,7 +71,7 @@ public class Wikiwars {
             writer.append("timestamp, entity, sentiment, joy, anger, disgust, sadness, fear");
             writer.newLine();
             for(DataPoint dp : results){
-                writer.append(dp.toString());
+                writer.write(dp.toString());
                 writer.newLine();
             }
             writer.close();
