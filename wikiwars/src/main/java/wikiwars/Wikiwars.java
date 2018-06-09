@@ -81,7 +81,7 @@ public class Wikiwars {
             Logger.getLogger(Wikiwars.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        try
+        /*try
         {            
             Runtime rt = Runtime.getRuntime();
             Process proc = rt.exec("Rscript ../analysis/analysis.R  "+csvFile);
@@ -98,7 +98,7 @@ public class Wikiwars {
         } catch (Throwable t)
           {
             t.printStackTrace();
-        }
+        }*/
 
 
     }

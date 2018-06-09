@@ -104,7 +104,7 @@ public class WikiLoaderImpl implements WikiLoader {
         
         title = title.replaceAll("\\u0020", "%20");
         
-        String idQuery = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvlimit=500&titles="
+        String idQuery = "https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&rvlimit=100&titles="
           + title;
         
         

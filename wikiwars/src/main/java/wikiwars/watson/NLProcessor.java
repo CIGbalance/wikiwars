@@ -50,6 +50,7 @@ public class NLProcessor {
         EntitiesOptions entitiesOptions = new EntitiesOptions.Builder()
             .sentiment(true)
             .emotion(true)
+            .limit(5)
             .build();
 
         SentimentOptions sentimentOptions = new SentimentOptions.Builder()

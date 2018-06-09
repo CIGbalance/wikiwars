@@ -1,8 +1,8 @@
 #!/usr/bin/env Rscript
 args = commandArgs(trailingOnly=TRUE)
 path = args[1]
-print(path)
-#path="Foreign_relations_of_North_Korea.csv"
+#print(path)
+path="Donald_Trump.csv"
 
 plotEntity = function(data, entity){
   #sentiment plot
@@ -25,11 +25,12 @@ plotEntity = function(data, entity){
 data <- read.csv(file=path, header=TRUE, sep=",")
 data$timestamp = as.Date(data$timestamp)
 
-pdf("output.pdf")
+#pdf("output.pdf")
 for(entity in unique(data$entity)){
+  print(data[data$entity==entity,])
   plotEntity(data[data$entity==entity,], entity)
 }
-dev.off()
+#dev.off()
 
 #do analysis
 
