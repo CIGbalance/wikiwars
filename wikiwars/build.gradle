@@ -7,7 +7,7 @@ group 'de.wikiwars'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
-ext.mainClassName = 'wikiwars.Wikiwars'
+mainClassName = 'wikiwars.Wikiwars'
 
 repositories {
     mavenCentral()
