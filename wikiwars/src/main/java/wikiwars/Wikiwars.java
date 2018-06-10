@@ -5,28 +5,20 @@
  */
 package wikiwars;
 
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.*;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import wikiwars.watson.NLProcessor;
 import wikiwars.wikiloader.WikiLoader;
 import wikiwars.wikiloader.WikiLoaderImpl;
 
- import org.json.simple.parser.*;
-
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import wikiwars.watson.DataPoint;
+import wikiwars.wikiloader.WikiLoaderTalk;
 
 /**
  * @author vv
@@ -38,27 +30,34 @@ public class Wikiwars {
      */
     public static void main(String[] args) {
         //input Thema
-        String topic = "Donald_Trump";
+        String topic = "North_Korea";
         String url = "https://en.wikipedia.org/wiki/" + topic;
         String csvFile = topic+".csv";
         //get data per Wiki API
 
 
-        WikiLoader wl = new WikiLoaderImpl();
+        WikiLoaderTalk wl = new WikiLoaderTalk();
         NLProcessor nlp = new NLProcessor();
 
-        List<Long> articleRevids = wl.getArticleRevids(topic);
-        Map<String, String> articleHistory = wl.getArticleHistory(articleRevids);
-
-
+        //List<Long> articleRevids = wl.getArticleRevids(topic);
+        //Map<String, String> articleHistory = wl.getArticleHistory(articleRevids);
+        List<String> articleHistory = wl.getArticleHistory(topic);
         //get Watson response
         List<DataPoint> results = new ArrayList<>();
         
-        System.out.println(articleHistory.keySet());
-
-        for(String time : articleHistory.keySet()) {
-            results.addAll(nlp.processText(time, articleHistory.get(time)));
+        //System.out.println(articleHistory.keySet());
+        for(String comment: articleHistory){
+            if(comment.length()>100){
+                System.out.println(comment);
+                List<DataPoint> dp;
+                dp = nlp.processText("", comment);
+                if(dp!=null){
+                    results.addAll(dp);
+   
+                }
+            }
         }
+
         
         /*NLProcessor nlp = new NLProcessor();
         Instant time = Instant.EPOCH;

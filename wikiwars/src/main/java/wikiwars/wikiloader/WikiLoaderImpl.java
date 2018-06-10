@@ -24,7 +24,8 @@ public class WikiLoaderImpl implements WikiLoader {
 	public Map<String, String> getArticleHistory(List<Long> revids){
             Map<String,String> results = new HashMap<String, String>();
             for(long revid : revids){
-                String idQuery = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|revisions&explaintext=true&format=json&revids="+revid;
+                String idQuery = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|revisions&explaintext=true&exintro=true&format=json&revids="+revid;
+                System.out.println(idQuery);
                 
                 StringBuilder sb = new StringBuilder();
                 URLConnection urlConn = null;
@@ -70,7 +71,7 @@ public class WikiLoaderImpl implements WikiLoader {
 			
 			String extract = (String) page.get("extract");
                         int cutoff = extract.indexOf("== References ==");
-                        extract = extract.substring(0, cutoff);
+                        //extract = extract.substring(0, cutoff);
                         
                         JSONArray revisions = (JSONArray) page.get("revisions");
 			
@@ -86,6 +87,7 @@ public class WikiLoaderImpl implements WikiLoader {
 			}
                         
                         results.put(timestamp, extract);
+                        //System.out.println(extract);
 			
 		} catch (Exception e) {
 			System.out.println("du bist aber verarscht worden ");

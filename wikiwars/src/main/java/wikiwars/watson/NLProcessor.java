@@ -22,14 +22,18 @@ public class NLProcessor {
 
     public List<DataPoint> processText(String time, String text) {
         // TODO: Silly example code
-        AnalysisResults response = requestWatson(text);
-        System.out.println(response);
+        if(text.length()>0){
+            AnalysisResults response = requestWatson(text);
+        //System.out.println(response);
         return parseResponse(time, response);
+        }
+        return null;
+
     }
     
     public List<DataPoint> parseResponse(String time, AnalysisResults response){
         List<DataPoint> parsedResult = new ArrayList<DataPoint>();
-        List<EntitiesResult> entities = response.getEntities();
+        /*List<EntitiesResult> entities = response.getEntities();
         for(EntitiesResult entity: entities){
             EmotionScores emo = entity.getEmotion();
             if(emo!=null){
@@ -38,8 +42,11 @@ public class NLProcessor {
                 String name = entity.getText();
                 parsedResult.add(new DataPoint(time, name, sentiment, emotions)); 
             }
-        }
+        }*/
         double sentiment =  response.getSentiment().getDocument().getScore();
+        if (response.getEmotion()==null){
+            return null;
+        }
         EmotionScores emo = response.getEmotion().getDocument().getEmotion();
         double[] emotions = {emo.getJoy(), emo.getAnger(), emo.getDisgust(), emo.getSadness(), emo.getFear()};
         parsedResult.add(new DataPoint(time, "document", sentiment, emotions));
@@ -60,7 +67,7 @@ public class NLProcessor {
                 .build();
 
         Features features = new Features.Builder()
-                .entities(entitiesOptions)
+                //.entities(entitiesOptions)
                 .sentiment(sentimentOptions)
                 .emotion(emotionOptions)
                 .build();
