@@ -1,3 +1,6 @@
 .idea
 out
 bin
+
+#required by the warpper
+!gradle/**/*.jar
